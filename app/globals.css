@@ -2799,40 +2799,97 @@ a.btn-primary { color: #fff; }
 }
 
 /* ---------- Footer ---------- */
+/* Mirrors the scrolled navbar: a floating glass pill, same links and icon buttons */
 .footer {
-  margin-top: 80px;
-  padding: 22px var(--gutter);
-  background: transparent;
-  border-top: 1px solid var(--border-subtle);
+  position: relative;
+  margin-top: 96px;
+  padding: 1px var(--gutter) 0;
+  background: radial-gradient(60% 120% at 50% 0%, rgba(47, 143, 255, 0.08), transparent 70%);
+  border-top: 0;
+  overflow: hidden;
 }
 .footer-inner {
-  max-width: var(--content-max);
-  flex-wrap: nowrap;
-  gap: 24px;
+  display: block; /* base rule above makes it a flex row */
+  max-width: 1520px;
+  margin: 0 auto;
 }
-.footer .brand { margin-right: 0; }
-.footer .brand-text { font-size: 1.2rem; }
-.footer-note {
-  max-width: 640px;
-  color: var(--text-dim);
-  font-size: 0.75rem;
-  line-height: 1.6;
+.footer-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 8px 10px 8px 20px;
+  background: rgba(8, 8, 8, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9999px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.52);
+}
+.footer .brand { margin-right: 16px; }
+.footer-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.footer-nav .nav-link { text-shadow: none; }
+.footer-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.footer-wordmark {
+  margin: 36px 0 -0.16em;
+  font-family: var(--font-heading);
+  font-size: clamp(4rem, 17vw, 18rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
   text-align: center;
+  white-space: nowrap;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 10%, rgba(255, 255, 255, 0) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+  pointer-events: none;
 }
-.footer-link {
-  flex-shrink: 0;
-  padding: 7px 14px;
-  border-radius: 10px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-muted);
+.footer-bottom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 4px 24px;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-dim);
   font-size: 0.8rem;
-  font-weight: 600;
-  text-decoration: none;
 }
-.footer-link:hover { color: #fff; border-color: #2a2a2a; }
+.footer-bottom a { color: var(--text-muted); text-decoration: none; transition: color var(--transition-fast); }
+.footer-bottom a:hover { color: #fff; }
+@media (max-width: 1100px) {
+  .footer-bar {
+    flex-wrap: wrap;
+    padding: 14px;
+    border-radius: 24px;
+  }
+  .footer .brand { margin-right: auto; padding-left: 6px; }
+  .footer-nav {
+    order: 3;
+    flex-basis: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .footer-nav .nav-link {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
 @media (max-width: 640px) {
-  .footer-inner { flex-direction: column; gap: 14px; }
+  .footer { margin-top: 72px; }
+  .footer-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-wordmark { margin-top: 28px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
 }
 .synopsis-box h4 { color: #fff; font-weight: 800; }
 .series-headline { max-width: 900px; }

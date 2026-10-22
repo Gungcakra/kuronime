@@ -7,7 +7,7 @@ import { NAV_ITEMS } from '@/lib/utils';
 import { BookmarkIcon, CalendarIcon, CloseIcon, CompassIcon, FilmIcon, FlameIcon, HomeIcon, ListIcon, MenuIcon, SearchIcon, UploadIcon } from './Icons';
 import { useBookmarks } from '@/hooks/useBookmarks';
 
-const NAV_ICONS = {
+export const NAV_ICONS = {
   '/': HomeIcon,
   '/explore': CompassIcon,
   '/ongoing': FlameIcon,
