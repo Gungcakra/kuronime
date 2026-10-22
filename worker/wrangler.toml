@@ -1,0 +1,7 @@
+name = "kuronime-proxy"
+main = "proxy.js"
+compatibility_date = "2026-10-01"
+
+# Both are secrets, not vars, so they never land in the repo:
+#   npx wrangler secret put UPSTREAM_BASE
+#   npx wrangler secret put PROXY_TOKEN

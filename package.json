@@ -1,0 +1,16 @@
+{
+  "name": "kuronime",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kuronime - anime streaming frontend + API gateway (Next.js), based on AmbaFlix API",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^15.5.28",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}
