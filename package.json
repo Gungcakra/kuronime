@@ -2,7 +2,7 @@
   "name": "kuronime",
   "version": "1.0.0",
   "private": true,
-  "description": "Kuronime - anime streaming frontend + API gateway (Next.js), based on AmbaFlix API",
+  "description": "Kuronime - situs streaming anime sub indo tanpa iklan (Next.js)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

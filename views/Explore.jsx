@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import MediaGrid, { GridSkeleton } from '@/components/MediaGrid';
+import MediaGrid from '@/components/MediaGrid';
 import Pagination from '@/components/Pagination';
 import SectionHeader from '@/components/SectionHeader';
 import { CloseIcon, FilterIcon, SearchIcon } from '@/components/Icons';
@@ -56,7 +56,6 @@ export default function Explore() {
 
   const [qInput, setQInput] = useState(q);
   const [showAllGenres, setShowAllGenres] = useState(false);
-  const [progress, setProgress] = useState(null);
   const timer = useRef(null);
 
   // Keep the input in sync when navigating via history
@@ -87,15 +86,14 @@ export default function Explore() {
 
   const queryString = params.toString();
   const { data, loading, error, retry } = useFetch(async signal => {
-    // The first request after a deploy kicks off the catalogue crawl
+    // The first request after a deploy kicks off the catalogue crawl; the grid
+    // stays on its skeleton until it's done
     for (;;) {
       const res = await api.explore(queryString, signal);
       if (!res.building) {
-        setProgress(null);
         facetCache = res.facets;
         return res;
       }
-      setProgress(res.progress);
       await sleep(POLL_MS, signal);
     }
   }, [queryString]);
@@ -122,8 +120,6 @@ export default function Explore() {
     const qs = next.toString();
     return qs ? `${pathname}?${qs}` : pathname;
   };
-
-  const pct = progress?.total ? Math.round((progress.done / progress.total) * 100) : 0;
 
   return (
     <>
@@ -204,29 +200,14 @@ export default function Explore() {
       </div>
       )}
 
-      {progress ? (
-        <>
-          <div className="catalog-building" role="status">
-            <div className="catalog-building-text">
-              <strong>Menyiapkan katalog lengkap…</strong>
-              <span>{progress.done}/{progress.total || '?'} halaman · hanya sesekali, sekitar 10–30 detik</span>
-            </div>
-            <div className="progress-track"><div className="progress-fill" style={{ width: `${pct}%` }} /></div>
-          </div>
-          <GridSkeleton count={18} />
-        </>
-      ) : (
-        <>
-          <MediaGrid
-            items={data?.result}
-            loading={loading}
-            error={error}
-            onRetry={retry}
-          />
-          {!loading && !error && data && (
-            <Pagination page={data.page} lastPage={data.totalPages} hrefFor={hrefFor} />
-          )}
-        </>
+      <MediaGrid
+        items={data?.result}
+        loading={loading}
+        error={error}
+        onRetry={retry}
+      />
+      {!loading && !error && data && (
+        <Pagination page={data.page} lastPage={data.totalPages} hrefFor={hrefFor} />
       )}
     </>
   );

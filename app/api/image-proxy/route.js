@@ -13,6 +13,21 @@ const MAX_CONCURRENT = 6;
 const ATTEMPTS = 3;
 const CACHE_HEADER = 'public, max-age=86400, s-maxage=2592000, stale-while-revalidate=86400, immutable';
 
+// Hosts the upstream serves covers from. Anything else is refused so the route
+// can't be used as an open proxy (or redirect) for arbitrary URLs.
+const ALLOWED_HOSTS = [
+  'anilist.co',
+  'myanimelist.net',
+  'wp.com',
+  'animekita.org',
+  'wikimedia.org',
+  'otakudesu.blog',
+  'pinimg.com'
+];
+
+const isAllowedHost = hostname =>
+  ALLOWED_HOSTS.some(host => hostname === host || hostname.endsWith(`.${host}`));
+
 const inFlight = new Map();
 let active = 0;
 const queue = [];
@@ -67,6 +82,7 @@ function loadImage(url) {
 export async function GET(request) {
   const target = parseHttpUrl(new URL(request.url).searchParams.get('url'));
   if (!target) return new Response('Invalid url parameter', { status: 400 });
+  if (!isAllowedHost(target.hostname)) return new Response('Host not allowed', { status: 403 });
 
   try {
     const { type, body } = await loadImage(target.href);

@@ -186,18 +186,18 @@ export function ScheduleSkeleton() {
   return (
     <div aria-busy="true" aria-label="Memuat">
       <HeaderSkeleton titleWidth={200} />
-      <div className="day-tabs">
-        {range(7).map(i => <Bone key={i} w={78} h={52} r={14} style={{ flexShrink: 0 }} />)}
+      <div className="day-tabs schedule-days">
+        {range(7).map(i => <Bone key={i} className="day-tab-skel" w={78} h={52} r={14} />)}
       </div>
       <div className="schedule-list">
         {range(9).map(i => (
           <div key={i} className="schedule-item">
-            <Bone w={52} h={72} r={8} style={{ flexShrink: 0 }} />
-            <div className="skel-stack" style={{ flex: 1 }}>
+            <span className="schedule-cover"><Bone className="schedule-cover-skel" w={null} h={null} r={8} /></span>
+            <div className="skel-stack schedule-title-skel">
               <Bone w="85%" h={14} />
               <Bone w="55%" h={14} />
             </div>
-            <Bone w={84} h={22} r={999} style={{ flexShrink: 0 }} />
+            <Bone className="schedule-time-skel" w={84} h={22} r={999} />
           </div>
         ))}
       </div>

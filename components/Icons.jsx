@@ -69,3 +69,6 @@ export const GithubIcon = ({ size = 20 }) => (
 export const ArrowUpIcon = ({ size = 18 }) => (
   <svg {...base} width={size} height={size} strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></svg>
 );
+export const ClockIcon = ({ size = 14 }) => (
+  <svg {...base} width={size} height={size}><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+);
